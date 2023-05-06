@@ -1,4 +1,19 @@
-#include"DynamicSearchTable.h"
+#include<bits/stdc++.h>
+using namespace std;
+template<typename KEY,typename VALUE>
+struct SET{
+	KEY key;
+	VALUE val;
+};
+
+template<typename KEY,typename VALUE>
+class DynamicSearchTable{
+public:
+	virtual SET<KEY,VALUE>* find(const KEY &x) const=0;
+	virtual void insert(const SET<KEY,VALUE> &x)=0;
+	virtual void remove(const KEY &x)=0;
+	virtual ~DynamicSearchTable()=default;
+};
 
 template<typename KEY,typename VALUE>
 class AvlTree:public DynamicSearchTable<KEY,VALUE>{
@@ -8,7 +23,7 @@ private:
 		node *left,*right;
 		int height;
 		node(const SET<KEY,VALUE> &element,node* l=nullptr,node* r=nullptr,int h=1)
-			:data(element),left(l),right(r),height(h){}
+				:data(element),left(l),right(r),height(h){}
 	};
 	node *root;
 	void insert(const SET<KEY,VALUE> &x,node *&t){
@@ -138,4 +153,25 @@ public:
 	void remove(const KEY &x){
 		remove(x,root);
 	}
+	int six(){
+		return traverse(root,1);
+	}
+	int traverse(const node* t,int f){
+		if(t==nullptr) return 0;
+		return traverse(t->left,f+1)+traverse(t->right,f+1)+f;
+	}
 };
+
+AvlTree<int,int>a;
+SET<int,int>b;
+int main(){
+	int tmp,cnt=0;
+	while(cin>>tmp){
+		if(tmp==-2) break;
+		b.key=tmp;
+		b.val=1;
+		a.insert(b);
+		++cnt;
+	}
+	cout<<a.six()/cnt;
+}

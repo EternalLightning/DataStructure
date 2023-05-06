@@ -1,9 +1,7 @@
-#include<bits/stdc++.h>
-
-using namespace std;
+#include"List.h"
 
 template<class Type>
-class seqList{
+class seqList:public List<Type>{
 private:
 	Type *data;
 	int currentLength;
@@ -54,11 +52,6 @@ public:
 	}
 	void traverse() const{
 		for(int i=0;i<currentLength;++i)
-			cout<<data[i]<<" ";
+			std::cout<<data[i]<<" ";
 	}
 };
-
-int main(){
-
-	return 0;
-}
