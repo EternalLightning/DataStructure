@@ -1,7 +1,10 @@
 #include<bits/stdc++.h>
+
 using namespace std;
+
 const int MAXN=10001;
 int a[MAXN],n,cnt;
+
 void merge(int l,int r){
 	if(l==r) return;
 	int mid=(l+r)>>1;
@@ -16,6 +19,7 @@ void merge(int l,int r){
 	for(int m=0;m<k;++m)
 		a[l+m]=aux[m];
 }
+
 int main(){
 	cin>>n;
 	for(int i=1;i<=n;++i)

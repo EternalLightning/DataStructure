@@ -1,7 +1,4 @@
-#include<bits/stdc++.h>
 #include"DynamicSearchTable.h"
-
-using namespace std;
 
 template<typename KEY,typename VALUE>
 class CloseHashTable:public DynamicSearchTable<KEY,VALUE>{
@@ -62,8 +59,3 @@ public:
 		}while(pos!=initPos);
 	}
 };
-
-int main(){
-
-	return 0;
-}

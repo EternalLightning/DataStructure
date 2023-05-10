@@ -1,6 +1,4 @@
-#include<bits/stdc++.h>
 #include"DynamicSearchTable.h"
-using namespace std;
 
 template<typename KEY,typename VALUE>
 class BinarySearchTree:public DynamicSearchTable<KEY,VALUE>{
@@ -63,9 +61,3 @@ public:
 		remove(x,root);
 	}
 };
-
-
-int main(){
-
-	return 0;
-}

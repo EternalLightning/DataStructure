@@ -1,7 +1,4 @@
-#include<bits/stdc++.h>
 #include"DynamicSearchTable.h"
-
-using namespace std;
 
 template<typename KEY,typename VALUE>
 class AvlTree:public DynamicSearchTable<KEY,VALUE>{
@@ -27,7 +24,7 @@ private:
 		else if(x.key>t->data.key){
 			insert(x,t->right);
 			if(height(t->right)-height(t->left)==2){
-				if(x.key>t->left->data.key) RR(t);
+				if(x.key>t->right->data.key) RR(t);
 				else RL(t);
 			}
 		}
@@ -142,11 +139,3 @@ public:
 		remove(x,root);
 	}
 };
-
-AvlTree<int,string>a;
-int main(){
-	SET<int,string> x;
-	a.insert(x);
-	a.remove(1);
-	return 0;
-}
