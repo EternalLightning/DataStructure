@@ -10,9 +10,11 @@ private:
 			state=0;
 		}
 	};
+
 	node *array;
 	int size;
 	int (*getHashKey)(const KEY &x); //a function pointer
+
 	static int defaultKey(const int &x){
 		return x;
 	}
@@ -22,9 +24,11 @@ public:
 		array=new node[size];
 		getHashKey=f; //You can create your own key function
 	}
+
 	~CloseHashTable(){
 		delete[]array;
 	}
+
 	SET<KEY,VALUE>* find(const KEY &x) const{
 		int initPos,pos;
 		initPos=pos=getHashKey(x.key)%size;
@@ -34,6 +38,7 @@ public:
 			pos=(pos+1)%size;
 		}while(pos!=initPos);
 	}
+
 	void insert(const SET<KEY,VALUE> &x){
 		int initPos,pos;
 		initPos=pos=getHashKey(x.key)%size;
@@ -46,6 +51,7 @@ public:
 			pos=(pos+1)%size;
 		}while(pos!=initPos);
 	}
+	
 	void remove(const KEY &x){
 		int initPos,pos;
 		initPos=pos=getHashKey(x.key)%size;

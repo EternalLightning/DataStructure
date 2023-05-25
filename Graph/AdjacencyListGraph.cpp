@@ -1,4 +1,5 @@
 #include "Graph.h"
+#include "../LinearStructure/Queue.cpp"
 
 template<typename VerType, typename EdgeType>
 class AdjacencyListGraph:public Graph<VerType, EdgeType>{
@@ -9,24 +10,29 @@ private:
 		edgeNode* nxt;
 		edgeNode(int e, EdgeType w, edgeNode* n=nullptr):end(e), weight(w), nxt(n){}
 	};
+
 	struct verNode{
 		VerType ver; //data
 		edgeNode* head;
 		verNode(edgeNode* h=nullptr):head(h){}
 	};
+
 	int vers,edges;
 	verNode* verList;
+
 	int find(VerType v) const{
 		for(int i=1;i<=vers;++i)
 			if(verList[i].ver==v)
 				return i;
 	}
+
 	AdjacencyListGraph(int size, const VerType* data){
 		vers=size, edges=0;
 		verList=new verNode[size];
 		for(int i=0;i<vers;++i)
 			verList[i].ver=data[i];
 	}
+
 	~AdjacencyListGraph(){
 		edgeNode* p;
 		for(int i=0;i<vers;++i)
@@ -37,11 +43,13 @@ private:
 			}
 		delete[]verList;
 	}
+
 	void insert(VerType x, VerType y, EdgeType w){
 		int u=find(x), v=find(y);
 		verList[u].head=new edgeNode(v, w, verList[u].head);
 		++edges;
 	}
+
 	void remove(VerType x, VerType y){
 		int u=find(x), v=find(y);
 		edgeNode *p=verList[u].head, *q;
@@ -61,6 +69,7 @@ private:
 			--edges;
 		}
 	}
+
 	bool exist(VerType x, VerType y) const{
 		int u=find(x), v=find(y);
 		edgeNode* p=verList[u].head;
@@ -68,5 +77,51 @@ private:
 			p=p->nxt;
 		if(p==nullptr) return false;
 		return true;
+	}
+
+	void dfs(int start, bool* visit){
+		edgeNode* p=verList[start].head;
+		// cout<<verList[start].ver<<" ";
+		visit[start]=true;
+		while(p!=nullptr){
+			if(!visit[p->end]) dfs(p->end, visit);
+			p=p->nxt;
+		}
+	}
+
+	void dfs() const{
+		bool* visit=new bool[vers];
+		for(int i=0;i<vers;++i)
+			visit[i]=false;
+		for(int i=0;i<vers;++i){
+			if(visit[i]) continue;
+			dfs(i, visit);
+			// cout<<endl;
+		}
+	}
+
+	void bfs(){
+		bool* visit=new bool[vers];
+		int currentNode;
+		queue<int> q;
+		edgeNode* p;
+		for(int i=0;i<vers;++i)
+			visit[i]=false;
+		for(int i=0;i<vers;++i){
+			if(visit[i]) continue;
+			q.push(i);
+			while(!q.empty()){
+				currentNode=q.pop();
+				if(visit[currentNode]) continue;
+				// cout<<verList[currentNode].ver<<" ";
+				visit[currentNode]=true;
+				p=verList[currentNode].head;
+				while(p!=nullptr){
+					if(!visit[p->end]) q.push(p->end);
+					p=p->nxt;
+				}
+			}
+			// cout<<endl;
+		}
 	}
 };

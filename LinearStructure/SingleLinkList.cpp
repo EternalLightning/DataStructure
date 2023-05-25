@@ -13,8 +13,10 @@ private:
 		}
 		node():nxt(nullptr){}
 	};
+
 	node *head;
 	int currentLength;
+
 	node* move(int i) const{ //return the address of node i
 		node *p=head;
 		while(i>=0){
@@ -23,6 +25,7 @@ private:
 		}
 		return p;
 	}
+
 	void delnxt(node* p){//delete the NEXT node of pointer p
 		node *delp=p->nxt;
 		p->nxt=p->nxt->nxt;
@@ -34,9 +37,11 @@ public:
 		head=new node;
 		currentLength=0;
 	}
+
 	~sLinkList(){
 		delete[]head;
 	}
+
 	void clear(){
 		node *q,*p=head->nxt;
 		head->nxt=nullptr;
@@ -47,14 +52,17 @@ public:
 		}
 		currentLength=0;
 	}
+
 	int length() const{
 		return currentLength;
 	}
+
 	void insert(int i,const Type &x){
 		node *pos=move(i-1);
 		pos->nxt=new node(x,pos->nxt);
 		++currentLength;
 	}
+
 	void remove(int i){
 		node *pos=move(i-1),*delp;
 		delp=pos->nxt;
@@ -62,6 +70,7 @@ public:
 		delete delp;
 		--currentLength;
 	}
+
 	int search(const Type &x) const{
 		node *p=head->nxt;
 		int i=0;
@@ -72,9 +81,11 @@ public:
 		if(p==nullptr) return -1;
 		return i;
 	}
+
 	Type visit(int i) const{
 		return move(i)->data;
 	}
+
 	void traverse() const{
 		node *p=head->nxt;
 		while(p!=nullptr){
@@ -82,9 +93,6 @@ public:
 			p=p->nxt;
 		}
 		cout<<endl;
-	}
-	void erase(int x,int y){
-
 	}
 };
 int main(){

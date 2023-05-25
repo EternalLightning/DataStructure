@@ -8,7 +8,9 @@ private:
 		node *left,*right;
 		node(const SET<KEY,VALUE> &element,node* l=nullptr,node* r=nullptr):data(element),left(l),right(r){}
 	};
+
 	node *root;
+
 	void insert(const SET<KEY,VALUE> &x,node* &t){
 		if(t==nullptr)
 			t=new node(x);
@@ -17,6 +19,7 @@ private:
 		else if(x.key>t->data.key)
 			insert(x,t->right);
 	}
+
 	void remove(const KEY &x,node* &t){
 		if(t==nullptr) return;
 		if(x<t->data.key) remove(x,t->left);
@@ -33,6 +36,7 @@ private:
 			delete oldNode;
 		}
 	}
+
 	void clear(node* t){
 		if(t==nullptr) return;
 		clear(t->left);
@@ -43,9 +47,11 @@ public:
 	BinarySearchTree(){
 		root=nullptr;
 	}
+
 	~BinarySearchTree(){
 		clear(root);
 	}
+
 	SET<KEY,VALUE>* find(const KEY &x) const{
 		node *t=root;
 		while(t!=nullptr&&t->data.key!=x){
@@ -54,9 +60,11 @@ public:
 		}
 		return t==nullptr?nullptr:&t->data;
 	}
+
 	void insert(const SET<KEY,VALUE> &x){
 		insert(x,root);
 	}
+	
 	void remove(const KEY &x){
 		remove(x,root);
 	}

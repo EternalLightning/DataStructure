@@ -10,7 +10,9 @@ private:
 		node(const SET<KEY,VALUE> &element,node* l=nullptr,node* r=nullptr,int h=1)
 			:data(element),left(l),right(r),height(h){}
 	};
+
 	node *root;
+
 	void insert(const SET<KEY,VALUE> &x,node* &t){
 		if(t==nullptr)
 			t=new node(x);
@@ -30,6 +32,7 @@ private:
 		}
 		t->height=max(height(t->left),height(t->right))+1;
 	}
+
 	bool remove(const KEY &x,node* &t){
 		if(t==nullptr) return true;
 		if(x==t->data.key){
@@ -56,15 +59,18 @@ private:
 			return adjust(t,1);
 		}
 	}
+
 	void clear(node *t){
 		if(t==nullptr) return;
 		clear(t->right);
 		clear(t->left);
 		delete t;
 	}
+
 	int height(node *t) const{
 		return t==nullptr?0:t->height;
 	}
+
 	void LL(node *&t){
 		node *t1=t->left;
 		t->left=t1->right;
@@ -73,14 +79,17 @@ private:
 		t1->height=max(height(t1->left),height(t1->right))+1;
 		t=t1;
 	}
+
 	void LR(node *&t){
 		RR(t->left);
 		LL(t);
 	}
+
 	void RL(node *&t){
 		LL(t->right);
 		RR(t);
 	}
+
 	void RR(node *&t){
 		node *t1=t->right;
 		t->right=t1->left;
@@ -89,6 +98,7 @@ private:
 		t1->height=max(height(t1->left),height(t1->right))+1;
 		t=t1;
 	}
+
 	bool adjust(node *&t,int subTree){
 		if(subTree){ //delete on right subtree
 			if(height(t->left)-height(t->right)==1) return true;
@@ -123,9 +133,11 @@ public:
 	AvlTree(){
 		root=nullptr;
 	}
+
 	~AvlTree(){
 		clear(root);
 	}
+
 	SET<KEY,VALUE>* find(const KEY &x) const{
 		node *t=root;
 		while(t!=nullptr&&t->data.key!=x)
@@ -133,9 +145,11 @@ public:
 			else t=t->right;
 		return t==nullptr?nullptr:&t->data;
 	}
+
 	void insert(const SET<KEY,VALUE> &x){
 		insert(x,root);
 	}
+	
 	void remove(const KEY &x){
 		remove(x,root);
 	}

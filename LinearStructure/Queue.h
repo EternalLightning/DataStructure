@@ -3,8 +3,12 @@
 
 template<typename Type>
 class Queue{
+private:
+	Type* elem;
+	int maxSize, front, rear;
+	virtual void doubleSpace()=0;
 public:
-	virtual bool isEmpty() const=0;
+	virtual bool empty() const=0;
 	virtual void push(const Type &x)=0;
 	virtual Type pop()=0;
 	virtual Type top() const=0;
