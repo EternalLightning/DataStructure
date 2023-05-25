@@ -11,7 +11,7 @@ private:
 			:data(element),left(l),right(r),height(h){}
 	};
 	node *root;
-	void insert(const SET<KEY,VALUE> &x,node *&t){
+	void insert(const SET<KEY,VALUE> &x,node* &t){
 		if(t==nullptr)
 			t=new node(x);
 		else if(x.key<t->data.key){
@@ -30,11 +30,12 @@ private:
 		}
 		t->height=max(height(t->left),height(t->right))+1;
 	}
-	bool remove(const KEY &x,node *&t){
+	bool remove(const KEY &x,node* &t){
 		if(t==nullptr) return true;
 		if(x==t->data.key){
 			if(t->left==nullptr||t->right==nullptr){
-				node *oldNode=t->left==nullptr?t->right:t->left;
+				node *oldNode=t;
+				t=t->left==nullptr?t->right:t->left;
 				delete oldNode;
 				return false;
 			}
@@ -115,7 +116,7 @@ private:
 				return false;
 			}
 			RR(t);
-			return !(height(t->left)==height(t->right));
+			return height(t->left)!=height(t->right);
 		}
 	}
 public:

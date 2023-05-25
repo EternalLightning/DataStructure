@@ -40,7 +40,6 @@ public:
 			array[min1.i].fa=i;
 			array[min2.i].fa=i;
 			weightQueue.push(array[i]);
-			//cuizhihui tailihaile
 		}
 
 	}
