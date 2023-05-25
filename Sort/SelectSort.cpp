@@ -7,7 +7,7 @@ void selectSort(SET<KEY, VALUE>* a, int size){
         minn=i;
         for(int j=i+1;j<size;++j)
             if(a[j].key<a[minn].key)
-                min=j;
+                minn=j;
         swap(a[i], a[minn]); 
     }
 }

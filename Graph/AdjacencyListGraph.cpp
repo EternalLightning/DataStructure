@@ -21,7 +21,7 @@ private:
 		int num;
 		EulerNode* nxt;
 		EulerNode(int ver):num(ver), nxt(nullptr){}
-	}
+	};
 
 	int vers,edges;
 	verNode* verList;

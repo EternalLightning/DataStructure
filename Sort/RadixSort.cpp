@@ -9,6 +9,6 @@ struct node{
 };
 
 template<typename VALUE>
-void radixSort(node* &p){
+void radixSort(node<VALUE>* &p){
     //give up, no sense
 }

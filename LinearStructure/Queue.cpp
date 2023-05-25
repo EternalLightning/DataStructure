@@ -3,6 +3,9 @@
 template<typename Type>
 class queue:public Queue<Type>{
 private:
+	Type* elem;
+	int maxSize, front, rear;
+
     void doubleSpace(){
         Type* tmp=elem;
         elem=new Type[2*maxSize];
@@ -42,4 +45,4 @@ public:
     Type top(){
         return elem[(front+1)%maxSize];
     }
-}
+};

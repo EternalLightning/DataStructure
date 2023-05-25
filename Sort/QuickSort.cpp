@@ -10,7 +10,7 @@ void quickSort(SET<KEY, VALUE>* a, int l, int r){
 		while(a[i]<=tmp&&i<j) ++i;
 		if(i<j) swap(a[i],a[j]);
 	}
-	swap(a[i], a[l])
+	swap(a[i], a[l]);
 	quickSort(a, l, i-1);
 	quickSort(a, i+1, r);
 }

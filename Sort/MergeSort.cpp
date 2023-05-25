@@ -1,5 +1,6 @@
 #include "Set.h"
 
+template<typename KEY, typename VALUE>
 void mergeSort(SET<KEY, VALUE>* a, int l,int r){
 	if(l==r) return;
 	SET<KEY, VALUE>* aux=new SET<KEY, VALUE>[r-l+1];
