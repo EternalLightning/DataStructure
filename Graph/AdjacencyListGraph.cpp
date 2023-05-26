@@ -139,6 +139,22 @@ public:
 		}
 	}
 
+	verNode* clone() const{
+		verNode* tmp=new verNode[vers];
+		edgeNode* p;
+
+		for(int i=0;i<vers;++i){
+			tmp[i].ver=verList[i].ver;
+			p=verList[i].head;
+			while(p!=nullptr){
+				tmp[i].head=new edgeNode(p->end, p->weight, tmp[i].head);
+				p=p->nxt;
+			}
+		}
+
+		return tmp;
+	}
+
 	void EulerCircuit(VerType start){
 		EulerNode *begin, *end, *p, *q, *tb, *te;
 		int degree;
@@ -161,6 +177,36 @@ public:
 				return;
 			}
 		}
-		
+
+		start=find(start);
+		tmp=clone();
+
+		EulerCircuit(start, begin, end);
+
+		while(true){
+			p=begin;
+
+			while(p->nxt!=nullptr){
+				if(verList[p->nxt->num].head!=nullptr) break;
+				else p=p->nxt;
+			}
+			if(p->nxt==nullptr) break;
+			q=p->nxt;
+			EulerCircuit(q->num, tb, te);
+			te->nxt=q->nxt;
+			p->nxt=tb;
+			delete q;
+		}
+
+		delete[]verList;
+		verList=tmp;
+
+		while(begin!=nullptr){
+			//std::cout<<verList[begin->num].ver<<" ";
+			p=begin;
+			begin=begin->nxt;
+			delete p;
+		}
+		//cout<<endl;
 	}
 };
