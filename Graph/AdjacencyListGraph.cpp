@@ -5,7 +5,7 @@ template<typename VerType, typename EdgeType>
 class AdjacencyListGraph:public Graph<VerType, EdgeType>{
 private:
 	struct edgeNode{
-		int end;
+		int end; //point to another vertex
 		EdgeType weight;
 		edgeNode* nxt;
 		edgeNode(int e, EdgeType w, edgeNode* n=nullptr):end(e), weight(w), nxt(n){}
@@ -27,9 +27,22 @@ private:
 	verNode* verList;
 
 	int find(VerType v) const{
-		for(int i=1;i<=vers;++i)
+		for(int i=0;i<vers;++i)
 			if(verList[i].ver==v)
 				return i;
+	}
+
+	void EulerCircuit(int start, EulerNode* &begin, EulerNode* &end){
+		int nxt;
+		begin=end=new EulerNode(start);
+		while(verList[start].head!=nullptr){
+			nxt=verList[start].head->end;
+			remove(start, nxt);
+			remove(nxt, start);
+			start=nxt;
+			end->nxt=new EulerNode(start);
+			end=end->nxt;
+		}
 	}
 public:
 	AdjacencyListGraph(int size, const VerType* data){
@@ -178,10 +191,10 @@ public:
 			}
 		}
 
-		start=find(start);
+		int s=find(start);
 		tmp=clone();
 
-		EulerCircuit(start, begin, end);
+		EulerCircuit(s, begin, end);
 
 		while(true){
 			p=begin;
@@ -208,5 +221,26 @@ public:
 			delete p;
 		}
 		//cout<<endl;
+	}
+
+	void topoSort(){
+		queue<int> q;
+		edgeNode* p;
+		int current;
+		int* inDegree=new int[vers];
+		for(int i=0;i<vers;++i)
+			inDegree[i]=0;
+		for(int i=0;i<vers;++i)
+			for(p=verList[i].head;p!=nullptr;p=p->nxt)
+				++inDegree[p->end];
+		for(int i=0;i<vers;++i)
+		    if(!inDegree[i]) q.push(i);
+		while(!q.empty()){
+			current=q.pop();
+			// cout<<verList[current].ver<<" ";
+			for(p=verList[current].head;p!=nullptr;p=p->nxt)
+				if(--inDegree[p->end]==0)
+					q.push(p->end);
+		}
 	}
 };

@@ -27,7 +27,7 @@ public:
         delete[]elem;
     }
 
-    bool empty(){
+    bool empty() const{
         return front==rear;
     }
 
@@ -42,7 +42,7 @@ public:
         return elem[front];
     }
 
-    Type top(){
+    Type top() const{
         return elem[(front+1)%maxSize];
     }
 };
